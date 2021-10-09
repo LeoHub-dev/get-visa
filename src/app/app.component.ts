@@ -13,8 +13,8 @@ export class AppComponent {
   i = 0;
   dateList: Array<string> = [];
   audio = new Audio('assets/purge.mp3');
-  actualDate = Date.parse('2021-09-18');
-  afterDate = Date.parse('2021-09-12');
+  actualDate = Date.parse('2021-09-22');
+  afterDate = Date.parse('2021-09-17');
   showInfo = false;
 
   constructor(private http: HttpClient) { }
@@ -26,7 +26,10 @@ export class AppComponent {
         this.i++;
 
         var result: Array<string> = data;
-        this.dateList.push(result.length == 0 ? 'None' : result[0]);
+        var new_date = result.length == 0 ? 'None' : result[0];
+        if (new_date != this.dateList[this.dateList.length - 1]) {
+          this.dateList.push(new_date);
+        }
 
         var date = Date.parse(result[0]);
         if (date < this.actualDate && date > Date.now() && date > this.afterDate) {
@@ -44,7 +47,7 @@ export class AppComponent {
   }
 
   getDate() {
-    return this.http.get('https://agendamigracolbackend.emtelco.co/api/list_date_schedule/?nopaginate=true&city_id=tipi33&headquarters_id=tipi48&schedulecstm__level1=Cedula_Extranjeria');
+    return this.http.get('https://agendamigracolbackend.emtelco.co/api/list_date_schedule/?nopaginate=true&city_id=tipi33&headquarters_id=tipi48&schedulecstm__level1=57624622-fd3d-3941-89e0-5f735778a8da');
   }
 
   stopSound() {
